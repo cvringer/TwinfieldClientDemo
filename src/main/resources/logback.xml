@@ -1,0 +1,57 @@
+<configuration debug="true" scan="true">
+    <!-- Allow JMX access to logging configuration, and ensure this application's context does not collide with others -->
+    <contextName>TwinfieldClient</contextName>
+
+    <!-- Ensure we can also change java.util.logging levels using logback -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %ex%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/twinfield.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %ex%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MESSAGES_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/messages.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%fullRequest%n%n%fullResponse</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ====================================================================== -->
+    <!-- L O G G E R S -->
+    <!-- ====================================================================== -->
+    <logger name="nl.keienberg.twinfield.adapter" level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_LOG"/>
+    </logger>
+
+    <logger name="org.springframework.ws" level="WARN">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DAV_LOG"/>
+    </logger>
+
+    <logger name="org.springframework.ws.client.MessageTracing" level="TRACE">
+        <appender-ref ref="MESSAGES_LOG"/>
+    </logger>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
