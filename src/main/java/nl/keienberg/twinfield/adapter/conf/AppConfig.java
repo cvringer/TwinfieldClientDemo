@@ -5,6 +5,7 @@ import nl.keienberg.twinfield.adapter.client.impl.TwinfieldWebServiceSessionImpl
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.ws.client.core.WebServiceTemplate;
@@ -84,5 +85,10 @@ public class AppConfig {
         freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("classpath:/templates/");
         freeMarkerConfigurationFactoryBean.setDefaultEncoding("UTF-8");
         return freeMarkerConfigurationFactoryBean;
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 }

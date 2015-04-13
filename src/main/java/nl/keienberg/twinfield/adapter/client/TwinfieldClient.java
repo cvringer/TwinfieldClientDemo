@@ -24,10 +24,10 @@ public class TwinfieldClient {
     @Value("${session.postfix}")
     private String sessionPostfix;
 
-    @Value("${request.postfix}")
-    private String requestPostfix;
-    @Value("${finder.postfix}")
-    private String finderPostfix;
+//    @Value("${request.postfix}")
+//    private String requestPostfix;
+//    @Value("${finder.postfix}")
+//    private String finderPostfix;
 
     @Autowired
     private TwinfieldWebServiceSession twinfieldWebServiceSession;
